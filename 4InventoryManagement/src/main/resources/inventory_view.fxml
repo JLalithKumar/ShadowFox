@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="InventoryController" alignment="CENTER" style="-fx-padding: 20;">
+
+    <TableView fx:id="table" prefHeight="300" prefWidth="600">
+        <columns>
+            <TableColumn fx:id="nameCol" text="Product Name" prefWidth="150"/>
+            <TableColumn fx:id="barcodeCol" text="Barcode" prefWidth="150"/>
+            <TableColumn fx:id="priceCol" text="Price" prefWidth="100"/>
+            <TableColumn fx:id="qtyCol" text="Quantity" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <TextField fx:id="nameField" promptText="Product Name"/>
+        <TextField fx:id="barcodeField" promptText="Barcode"/>
+        <TextField fx:id="priceField" promptText="Price"/>
+        <TextField fx:id="qtyField" promptText="Quantity"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Add" onAction="#addItem"/>
+        <Button text="Update" onAction="#updateItem"/>
+        <Button text="Delete" onAction="#deleteItem"/>
+        <Button text="Total Stock Value" onAction="#calculateStockValue"/>
+    </HBox>
+
+</VBox>
