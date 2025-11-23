@@ -23,11 +23,9 @@ public class StudentInfoSystem extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Student Info System");
 
-        // --- Header ---
         Label header = new Label("Student Info System");
         header.getStyleClass().add("header");
 
-        // --- Form Inputs ---
         idField = new TextField();
         idField.setPromptText("ID");
         nameField = new TextField();
@@ -46,7 +44,6 @@ public class StudentInfoSystem extends Application {
         HBox form = new HBox(10, idField, nameField, marksField, addButton, updateButton, deleteButton);
         form.setPadding(new Insets(20));
 
-        // --- Table ---
         table = new TableView<>();
         data = FXCollections.observableArrayList();
         table.setItems(data);
@@ -85,7 +82,6 @@ public class StudentInfoSystem extends Application {
         primaryStage.show();
     }
 
-    // --- CRUD Methods ---
     private void addStudent() {
         String id = idField.getText().trim();
         String name = nameField.getText().trim();
@@ -174,7 +170,6 @@ public class StudentInfoSystem extends Application {
         alert.showAndWait();
     }
 
-    // --- Student class ---
     public static class Student {
         private final javafx.beans.property.SimpleStringProperty id;
         private final javafx.beans.property.SimpleStringProperty name;
