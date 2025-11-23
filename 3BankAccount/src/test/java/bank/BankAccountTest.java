@@ -14,8 +14,6 @@ public class BankAccountTest {
         bank = new BankAccount("Lalith", 1000);
     }
 
-    // --------------------- Deposit Tests ---------------------
-
     @Test
     void testDepositIncreasesBalance() {
         bank.deposit(500);
@@ -44,8 +42,6 @@ public class BankAccountTest {
         assertEquals(300, bank.getTransactions().get(1).getAmount());
     }
 
-    // --------------------- Withdrawal Tests ---------------------
-
     @Test
     void testWithdrawReducesBalance() {
         bank.withdraw(200);
@@ -73,8 +69,6 @@ public class BankAccountTest {
         assertEquals(2, bank.getTransactions().size());
     }
 
-    // --------------------- Balance Inquiry Tests ---------------------
-
     @Test
     void testInitialBalanceCorrect() {
         assertEquals(1000, bank.getBalance());
@@ -87,8 +81,6 @@ public class BankAccountTest {
         bank.deposit(50);
         assertEquals(1150, bank.getBalance());
     }
-
-    // --------------------- Interest Tests ---------------------
 
     @Test
     void testInterestAddedCorrectly() {
