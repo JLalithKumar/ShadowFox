@@ -39,7 +39,6 @@ public class BankAccount {
         transactions.add(new Transaction("Withdrawal", amount));
     }
 
-    // Optional feature
     public void applyInterest(double ratePercent) {
         if (ratePercent < 0) throw new IllegalArgumentException("Rate cannot be negative");
 
