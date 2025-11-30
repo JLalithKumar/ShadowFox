@@ -39,7 +39,6 @@ public class ChatClientGUI {
         connect(host, port);
     }
 
-    // ======================== UI SETUP ========================
     private void buildUI() {
         frame = new JFrame("Chat Application (Modern UI)");
         frame.setSize(900, 650);
@@ -63,7 +62,6 @@ public class ChatClientGUI {
 
         frame.add(top, BorderLayout.NORTH);
 
-        // Chat area
         centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBackground(new Color(240, 240, 240));
@@ -72,14 +70,12 @@ public class ChatClientGUI {
         centerScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         frame.add(centerScroll, BorderLayout.CENTER);
 
-        // User list
         userModel = new DefaultListModel<>();
         userList = new JList<>(userModel);
         JScrollPane userScroll = new JScrollPane(userList);
         userScroll.setPreferredSize(new Dimension(150, 0));
         frame.add(userScroll, BorderLayout.EAST);
 
-        // Bottom bar
         JPanel bottom = new JPanel(new BorderLayout(8, 8));
         inputField = new JTextField();
         JButton sendBtn = new JButton("Send");
@@ -90,7 +86,6 @@ public class ChatClientGUI {
 
         frame.add(bottom, BorderLayout.SOUTH);
 
-        // Listeners
         loginBtn.addActionListener(e -> login());
         joinBtn.addActionListener(e -> joinRoom());
         sendBtn.addActionListener(e -> sendMsg());
@@ -99,7 +94,6 @@ public class ChatClientGUI {
         frame.setVisible(true);
     }
 
-    // ======================== CONNECTION ========================
     private void connect(String host, int port) {
         try {
             socket = new Socket(host, port);
@@ -126,7 +120,6 @@ public class ChatClientGUI {
         }
     }
 
-    // ======================== MESSAGE BUBBLES ========================
     private void appendSystem(String msg) {
         addBubble(msg, "system", null, null);
     }
@@ -182,14 +175,10 @@ public class ChatClientGUI {
     private String escape(String t) {
         return t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
     }
-
-    // ======================== MESSAGE PARSING ========================
+    
     private void handleServerLine(String line) {
 
-        // ---------- PUBLIC MESSAGE ----------
         if (line.startsWith("MSG:")) {
-
-            // format: MSG:timestamp:room:user:message
             String data = line.substring(4);
 
             int idx1 = data.indexOf(':');
@@ -212,10 +201,8 @@ public class ChatClientGUI {
             return;
         }
 
-        // ---------- PRIVATE MESSAGE ----------
         if (line.startsWith("PM:")) {
 
-            // PM:timestamp:fromUser:message
             String data = line.substring(3);
             int idxLast = data.lastIndexOf(':');
             if (idxLast < 0) return;
@@ -239,19 +226,16 @@ public class ChatClientGUI {
             return;
         }
 
-        // ---------- INFO ----------
         if (line.startsWith("INFO:")) {
             appendSystem(line.substring(5));
             return;
         }
 
-        // ---------- ERROR ----------
         if (line.startsWith("ERROR:")) {
             appendSystem("[ERROR] " + line.substring(6));
             return;
         }
 
-        // ---------- USER LIST ----------
         if (line.startsWith("USERLIST:")) {
             userModel.clear();
             String[] list = line.substring(9).split(",");
@@ -263,7 +247,6 @@ public class ChatClientGUI {
         appendSystem(line);
     }
 
-    // ======================== SEND ========================
     private void login() {
         out.println("LOGIN:" + usernameField.getText().trim());
     }
@@ -292,12 +275,10 @@ public class ChatClientGUI {
         inputField.setText("");
     }
 
-    // ======================== TIMESTAMP ========================
     private String now() {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
 
-    // ======================== MAIN ========================
     public static void main(String[] args) {
 
         String h = "localhost";
