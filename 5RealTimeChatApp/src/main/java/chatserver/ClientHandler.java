@@ -35,7 +35,6 @@ public class ClientHandler implements Runnable {
                 handleLine(line);
             }
         } catch (IOException e) {
-            // connection reset
         } finally {
             cleanup();
         }
