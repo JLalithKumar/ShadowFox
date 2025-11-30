@@ -1,4 +1,4 @@
-# 🌑 ShadowFox — Internship Projects Collection
+# 🌑 ShadowFox - Internship Projects Collection
 
 This repository contains five Java-based internship projects designed to strengthen core programming, GUI development, testing, and networking concepts through hands-on applications.
 
