@@ -8,18 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.*;
 
-/**
- * Final ChatServer — FILE BROADCAST FORMAT (Choice-1)
- *
- * Broadcast when file uploaded:
- *  MSG:<ts>:<room>:SERVER:FILE:<fileId>:<filename>:<filesize>:<sender>
- *
- * File Upload:
- *   UPLOAD:<room>:<filename>:<filesize>:<sender>
- *
- * File Download:
- *   DOWNLOAD:<fileId>
- */
 public class ChatServer {
     private final int port;
     private final ServerSocket serverSocket;
@@ -37,7 +25,6 @@ public class ChatServer {
 
         if (!Files.exists(filesDir)) Files.createDirectories(filesDir);
 
-        // Start file transfer server
         new Thread(new FileTransferServer(6000)).start();
         System.out.println("FileTransferServer started on port 6000");
         System.out.println("ChatServer started on port " + port);
@@ -115,7 +102,6 @@ public class ChatServer {
         for (ClientHandler ch : set) ch.send("USERLIST:" + list);
     }
 
-    // ------------ File Meta Holder ----------
     private static class FileMeta {
         final String id, filename, sender, room;
         final Path path;
@@ -133,8 +119,6 @@ public class ChatServer {
 
     private void registerUploadedFile(FileMeta meta) {
         files.put(meta.id, meta);
-
-        // FINAL CHOICE-1 BROADCAST
         String fileMsg = "FILE:" + meta.id + ":" + meta.filename + ":" + meta.size + ":" + meta.sender;
 
         broadcastToRoom(meta.room, "SERVER", "FILE:" + meta.id + ":" + meta.filename + ":" + meta.size + ":" + meta.sender);
@@ -144,7 +128,6 @@ public class ChatServer {
         return files.get(id);
     }
 
-    // ---------------- FILE TRANSFER SERVER ----------------
     private class FileTransferServer implements Runnable {
         private final int filePort;
         private ServerSocket fileSocket;
@@ -223,8 +206,6 @@ public class ChatServer {
         }
     }
 
-
-    // ------------- MAIN -------------
     public static void main(String[] args) {
         try {
             new ChatServer(5555).start();
