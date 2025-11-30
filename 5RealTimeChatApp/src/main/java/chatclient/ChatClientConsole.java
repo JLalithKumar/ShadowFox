@@ -18,12 +18,10 @@ public class ChatClientConsole {
         socket = new Socket(host, port);
         out = new PrintWriter(socket.getOutputStream(), true);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        // start thread to read server messages
         readerThread = new Thread(() -> {
             try {
                 String s;
                 while ((s = in.readLine()) != null) {
-                    // simple client prints server raw messages
                     System.out.println("[SERVER] " + s);
                 }
             } catch (IOException e) {
